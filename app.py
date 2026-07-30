@@ -1,42 +1,35 @@
 import streamlit as st
 import random
-import time
 
-# ---- Title ----
-st.title("Digital Twin - Power Monitoring System")
+st.set_page_config(page_title="Digital Twin Dashboard", layout="wide")
 
-# ---- Expected Values (Digital Twin Model) ----
+st.title("⚡ Digital Twin Power Monitoring System")
+
+# Expected values (digital twin model)
 EXPECTED_VOLTAGE = 230
 EXPECTED_CURRENT = 0.3
 
-# ---- Simulated Data Function ----
-def get_data():
-    voltage = random.uniform(210, 240)
-    current = random.uniform(0.2, 0.5)
-    power = voltage * current
-    return voltage, current, power
+# Simulated input
+voltage = random.uniform(210, 250)
+current = random.uniform(0.2, 0.6)
+power = voltage * current
 
-# ---- Digital Twin Logic ----
-def check_status(voltage, current):
-    if abs(voltage - EXPECTED_VOLTAGE) > 20:
-        return "⚠️ Voltage Issue"
-    elif abs(current - EXPECTED_CURRENT) > 0.2:
-        return "⚠️ Current Issue"
+# Status check
+def check_status(v, i):
+    if abs(v - EXPECTED_VOLTAGE) > 15:
+        return "⚠️ Voltage Issue", "red"
+    elif abs(i - EXPECTED_CURRENT) > 0.2:
+        return "⚠️ Current Issue", "orange"
     else:
-        return "✅ Normal"
+        return "✅ Normal", "green"
 
-# ---- Main Loop ----
-placeholder = st.empty()
+status, color = check_status(voltage, current)
 
-for _ in range(100):
-    voltage, current, power = get_data()
-    status = check_status(voltage, current)
+# Layout
+col1, col2, col3 = st.columns(3)
 
-    with placeholder.container():
-        st.subheader("Live Data")
-        st.write(f"Voltage: {voltage:.2f} V")
-        st.write(f"Current: {current:.2f} A")
-        st.write(f"Power: {power:.2f} W")
-        st.write(f"Status: {status}")
+col1.metric("Voltage (V)", f"{voltage:.2f}")
+col2.metric("Current (A)", f"{current:.2f}")
+col3.metric("Power (W)", f"{power:.2f}")
 
-    time.sleep(1)
+st.markdown(f"### Status: :{color}[{status}]")
