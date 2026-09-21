@@ -1,0 +1,21 @@
+time,voltage,current,power,condition
+1,230,0.30,69,Normal
+2,232,0.31,72,Normal
+3,228,0.29,66,Normal
+4,231,0.30,69,Normal
+5,235,0.33,78,High Load
+6,238,0.36,86,High Load
+7,242,0.40,97,Overload
+8,240,0.42,100,Overload
+9,225,0.27,60,Low Load
+10,220,0.25,55,Low Load
+11,215,0.24,52,Low Voltage
+12,210,0.23,48,Low Voltage
+13,250,0.38,95,High Voltage
+14,255,0.40,102,High Voltage
+15,230,0.00,0,Open Circuit Fault
+16,230,0.05,11,Loose Connection
+17,230,0.60,138,Short Circuit
+18,228,0.30,68,Recovered
+19,231,0.31,72,Normal
+20,230,0.30,69,Normal
